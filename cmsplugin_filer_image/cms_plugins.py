@@ -1,35 +1,44 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.templatetags.static import static
 
-from cms.plugin_pool import plugin_pool
-from cms.plugin_base import CMSPluginBase
 from django.template.loader import select_template
+from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
-from . import models
+
+from cms.plugin_base import CMSPluginBase
+from cms.plugin_pool import plugin_pool
+
+from .forms import FilerImageForm
+from .models import FilerImage
 from .conf import settings
 
 
 class FilerImagePlugin(CMSPluginBase):
+    admin_preview = False
+    form = FilerImageForm
+    model = FilerImage
     module = 'Filer'
-    model = models.FilerImage
     name = _("Image")
+    raw_id_fields = ('image', 'page_link')
+    text_enabled = True
+
     TEMPLATE_NAME = 'cmsplugin_filer_image/plugins/image/%s.html'
     render_template = TEMPLATE_NAME % 'default'
-    text_enabled = True
-    raw_id_fields = ('image', 'page_link')
-    admin_preview = False
+
     fieldsets = (
         (None, {
             'fields': [
                 'caption_text',
-                ('image', 'image_url',),
+                'image',
+                'image_url',
                 'alt_text',
             ]
         }),
         (_('Image resizing options'), {
             'fields': (
                 'use_original_image',
-                ('width', 'height', 'crop', 'upscale'),
+                ('width', 'height',),
+                ('crop', 'upscale',),
                 'thumbnail_option',
                 'use_autoscale',
             )
@@ -39,9 +48,15 @@ class FilerImagePlugin(CMSPluginBase):
         }),
         (_('More'), {
             'classes': ('collapse',),
-            'fields': (('free_link', 'page_link', 'file_link', 'original_link', 'target_blank'), 'description',)
+            'fields': (
+                'free_link',
+                'page_link',
+                'file_link',
+                ('original_link', 'target_blank',),
+                'link_attributes',
+                'description',
+            ),
         }),
-
     )
     if settings.CMSPLUGIN_FILER_IMAGE_STYLE_CHOICES:
         fieldsets[0][1]['fields'].append('style')
@@ -80,10 +95,10 @@ class FilerImagePlugin(CMSPluginBase):
                 subject_location = instance.image.subject_location
             if not height and width:
                 # height was not externally defined: use ratio to scale it by the width
-                height = int( float(width)*float(instance.image.height)/float(instance.image.width) )
+                height = int(float(width) * float(instance.image.height) / float(instance.image.width))
             if not width and height:
                 # width was not externally defined: use ratio to scale it by the height
-                width = int( float(height)*float(instance.image.width)/float(instance.image.height) )
+                width = int(float(height) * float(instance.image.width) / float(instance.image.height))
             if not width:
                 # width is still not defined. fallback the actual image width
                 width = instance.image.width
@@ -100,11 +115,6 @@ class FilerImagePlugin(CMSPluginBase):
             return instance.image.file.get_thumbnail(self._get_thumbnail_options(context, instance))
 
     def render(self, context, instance, placeholder):
-        self.render_template = select_template((
-            'cmsplugin_filer_image/plugins/image.html',  # backwards compatibility. deprecated!
-            self.TEMPLATE_NAME % instance.style,
-            self.TEMPLATE_NAME % 'default')
-        )
         options = self._get_thumbnail_options(context, instance)
         context.update({
             'instance': instance,
@@ -114,6 +124,14 @@ class FilerImagePlugin(CMSPluginBase):
             'placeholder': placeholder
         })
         return context
+
+    def get_render_template(self, context, instance, placeholder):
+        template = select_template((
+            'cmsplugin_filer_image/plugins/image.html',  # backwards compatibility. deprecated!
+            self.TEMPLATE_NAME % instance.style,
+            self.TEMPLATE_NAME % 'default',
+        ))
+        return template
 
     def icon_src(self, instance):
         if instance.image:

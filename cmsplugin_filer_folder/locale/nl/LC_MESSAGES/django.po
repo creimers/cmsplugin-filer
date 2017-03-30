@@ -4,48 +4,49 @@
 # 
 # Translators:
 # Maikel Wever, 2013
+# kurdyma <transifex.com@kurdyenviolien.nl>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: cmsplugin-filer\n"
+"Project-Id-Version: django Filer Plugins\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-09 18:08+0100\n"
-"PO-Revision-Date: 2013-07-18 22:08+0000\n"
-"Last-Translator: Maarten Draijer <maarten@madra.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/cmsplugin-filer/language/nl/)\n"
+"POT-Creation-Date: 2016-08-23 10:26-0400\n"
+"PO-Revision-Date: 2016-06-27 20:24+0000\n"
+"Last-Translator: kurdyma <transifex.com@kurdyenviolien.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/divio/cmsplugin-filer/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: cms_plugins.py:15
+#: cms_plugins.py:16
 msgid "Folder"
 msgstr "Map"
 
-#: models.py:10
+#: conf.py:9
 msgid "List"
 msgstr "Lijst"
 
-#: models.py:10
+#: conf.py:10
 msgid "Slideshow"
 msgstr "Slideshow"
 
-#: models.py:18
+#: models.py:22
 msgid "title"
 msgstr "titel"
 
-#: models.py:19
-msgid "view option"
-msgstr "weergaveoptie"
+#: models.py:25
+msgid "Style"
+msgstr "Stijl"
 
-#: templates/cmsplugin_filer_folder/folder.html:23
+#: templates/cmsplugin_filer_folder/plugins/folder/default.html:23
 msgid "Folders"
 msgstr "Mappen"
 
-#: templates/cmsplugin_filer_folder/folder.html:31
+#: templates/cmsplugin_filer_folder/plugins/folder/default.html:31
 msgid "Files"
 msgstr "Bestanden"
 
-#: templates/cmsplugin_filer_folder/folder.html:39
+#: templates/cmsplugin_filer_folder/plugins/folder/default.html:39
 msgid "Images"
 msgstr "Afbeeldingen"

@@ -19,7 +19,8 @@ class FilerVideoPlugin(CMSPluginBase):
     text_enabled = True
 
     general_fields = [
-        ('movie', 'movie_url'),
+        'movie',
+        'movie_url',
         'image',
         ('width', 'height'),
         'auto_play',
@@ -52,12 +53,10 @@ class FilerVideoPlugin(CMSPluginBase):
         ]
 
     def render(self, context, instance, placeholder):
-        context.update({
-            'object': instance,
-            'placeholder': placeholder,
-        })
-        return context
+        context['object'] = instance
+        return super(FilerVideoPlugin, self).render(context, instance, placeholder)
 
     def icon_src(self, instance):
         return static("filer/icons/video_%sx%s.png" % (32, 32,))
+
 plugin_pool.register_plugin(FilerVideoPlugin)

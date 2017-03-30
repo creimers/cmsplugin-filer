@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 
@@ -6,8 +6,8 @@ from django.utils.translation import override
 
 from cms import api
 from filer.models import Image
-
-from cmsplugin_filer_image.models import FilerImage, ThumbnailOption
+from filer.models import ThumbnailOption
+from cmsplugin_filer_image.models import FilerImage
 from cmsplugin_filer_image.integrations.ckeditor import create_image_plugin
 
 from cmsplugin_filer_tests_shared.base import (

@@ -1,5 +1,53 @@
-Changelog for django-filer-cmsplugins
-=====================================
+CHANGELOG
+=========
+
+1.1.3 (2016-09-05)
+------------------
+
+* Fixed styling issues with attributes field
+* Pinned djangocms-attributes-field to v0.1.1+
+* Updated migrations to be compatible with djangoCMS 3.3.0 and 3.3.1
+* Introduced support for djangoCMS 3.4.0
+* Added native Aldryn support
+
+
+1.1.2 (2016-07-05)
+------------------
+
+* Pinned to djangocms-attributes-field v0.1.0
+* Fixed model name used in migration
+* Fixed an issue with folder plugin in Django 1.9
+* Allowed link attributes to be optional
+* Updated templates for `link_attributes_str`
+
+
+1.1.1 (2016-06-22)
+------------------
+
+* Updated requirements for Django Filer to >= 1.2.0
+* Fixed an issue with thumbnail options migrations
+
+
+1.1.0 (2016-06-21)
+------------------
+
+* Move ThumbnailOption to filer
+* Move migrations to proper layout
+* Put django's AppConfig for nice name in django admin
+* Add swappable dependency to initial migration
+* Add img-responsive class if automatic scaling
+* Add center image alignment
+* Implements AttributesField
+
+1.0.1 (2016-01-14)
+------------------
+
+* Fixes flake8 warnings
+* Changed internal project links to point to new repo url
+* Set on_delete to all plugins with relationships to filer models
+* Set file field as nullable in file plugin
+* Set folder field as nullable in folder plugin
+
 
 1.0.0 (2015-11-03)
 ------------------

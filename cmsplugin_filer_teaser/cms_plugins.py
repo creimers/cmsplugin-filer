@@ -61,10 +61,10 @@ class FilerTeaserPlugin(CMSPluginBase):
                 subject_location = instance.image.subject_location
             if not height and width:
                 # height was not externally defined: use ratio to scale it by the width
-                height = int( float(width)*float(instance.image.height)/float(instance.image.width) )
+                height = int(float(width) * float(instance.image.height) / float(instance.image.width))
             if not width and height:
                 # width was not externally defined: use ratio to scale it by the height
-                width = int( float(height)*float(instance.image.width)/float(instance.image.height) )
+                width = int(float(height) * float(instance.image.width) / float(instance.image.height))
             if not width:
                 # width is still not defined. fallback the actual image width
                 width = instance.image.width
@@ -76,14 +76,9 @@ class FilerTeaserPlugin(CMSPluginBase):
 
     def get_thumbnail(self, context, instance):
         if instance.image:
-            return instance.image.image.file.get_thumbnail(self._get_thumbnail_options(context, instance))
+            return instance.image.file.get_thumbnail(self._get_thumbnail_options(context, instance))
 
     def render(self, context, instance, placeholder):
-        self.render_template = select_template((
-            'cmsplugin_filer_teaser/plugins/teaser.html',  # backwards compatibility. deprecated!
-            self.TEMPLATE_NAME % instance.style,
-            self.TEMPLATE_NAME % 'default')
-        )
         options = self._get_thumbnail_options(context, instance)
         context.update({
             'instance': instance,
@@ -93,4 +88,13 @@ class FilerTeaserPlugin(CMSPluginBase):
             'placeholder': placeholder
         })
         return context
+
+    def get_render_template(self, context, instance, placeholder):
+        template = select_template((
+            'cmsplugin_filer_teaser/plugins/teaser.html',  # backwards compatibility. deprecated!
+            self.TEMPLATE_NAME % instance.style,
+            self.TEMPLATE_NAME % 'default',
+        ))
+        return template
+
 plugin_pool.register_plugin(FilerTeaserPlugin)
